@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}AdminLTE 3 | Dashboard 2{% endblock title %}</title>
+  
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__wobble" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+{% include 'nav.html' %}
+{% include 'side.html' %}
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        {% block chw %}
+        {% endblock chw %}
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      {% block content %}
+      <div class="container-fluid">
+        <div class="row mb-2">
+            <!-- <h2>Hopps</h2>
+
+            <form method="post">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form> -->
+            
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr class="bg-success">
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Staff</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for hopss in hopps_list %}
+                <tr>
+                  <td><a href="{% url 'hopps2' hopss.id %}">RR{{ hopss.date|date:"Y" }}-000{{ hopss.id }}</a></td>
+                  <td>{{ hopss.date }}</td>
+                  <td>{{ hopss.staff }}<a class="btn" href="{% url 'hopss_update' hopss.id %}"><i class='fas fa-edit'></i></a></td>
+                </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+            
+        </div>
+    </div>
+      {% endblock content %}
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+<!-- {% include 'footer.html' %} -->
+</div>
+<!-- ./wrapper -->
+{% include 'scripts.html' %}
+</body>
+</html>
